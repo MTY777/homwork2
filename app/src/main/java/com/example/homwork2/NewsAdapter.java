@@ -29,7 +29,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     public NewsAdapter() {
         this.list = new ArrayList<>();
-
     }
 
     @NonNull
@@ -42,9 +41,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
     holder.bind(list.get(position));
     if (position % 2 == 0){
-        holder.binding.title.setBackgroundColor(Color.BLACK);
-    }else{
         holder.binding.title.setBackgroundColor(Color.GRAY);
+    }else{
+        holder.binding.title.setBackgroundColor(Color.BLACK);
     }
     }
 
