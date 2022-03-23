@@ -13,9 +13,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.homwork2.Prefs;
 import com.example.homwork2.R;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
@@ -68,6 +68,8 @@ public class BoardFragment extends Fragment implements BoardAdapter.FinishBoard 
     }
 
     public void navigate(){
+        Prefs prefes =new Prefs(requireContext());
+        prefes.saveBoardState();
         NavController navController = Navigation.findNavController(requireActivity(),
                 R.id.nav_host_fragment_activity_main);
         navController.navigateUp();

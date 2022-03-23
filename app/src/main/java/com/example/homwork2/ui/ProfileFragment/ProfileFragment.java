@@ -14,19 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.homwork2.R;
+import com.bumptech.glide.Glide;
+import com.example.homwork2.Prefs;
 import com.example.homwork2.databinding.FragmentProfileBinding;
 
 
 public class ProfileFragment extends Fragment {
+    private Prefs prefes;
     private FragmentProfileBinding binding;
-    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
-            new ActivityResultCallback<Uri>() {
-                @Override
-                public void onActivityResult(Uri uri) {
-                    binding.image.setImageURI(uri);
-                }
-            });
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,6 +34,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        prefes = new Prefs(requireContext());
+
         binding.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +43,20 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+            binding.editext.setText(prefes.isEditText());
+            if (prefes.isImageView() != null){
+                Glide.with(binding.image).load(prefes.isImageView()).circleCrop().into(binding.image);
+            }
     }
 
-    }
+    ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri uri) {
+                    Glide.with(binding.image).load(uri).circleCrop().into(binding.image);
+                    prefes.saveImageViev(String.valueOf(uri));
+
+                }
+            });
+
+}
