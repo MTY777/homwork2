@@ -21,9 +21,6 @@ public class Prefs {
         return preferences.getBoolean("isBoardShown", false);
     }
 
-    public void saveEditText(String name){
-        preferences.edit().putString("text", name).apply();
-    }
     public String isEditText(){
         return preferences.getString("text", "");
     }
