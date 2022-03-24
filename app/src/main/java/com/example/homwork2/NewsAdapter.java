@@ -82,8 +82,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 @Override
                 public void onClick(View view) {
                     onClickListener.onItemClick(getAdapterPosition());
-                    Bundle bundle = new Bundle();
-                    bundle.putString("key_text", binding.title.getText().toString());
+
 
                 }
             });

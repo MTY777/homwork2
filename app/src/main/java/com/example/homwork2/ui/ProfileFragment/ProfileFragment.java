@@ -59,4 +59,9 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
+    @Override
+    public void onDestroy() {
+    prefes.saveEditText(binding.editext.getText().toString());
+        super.onDestroy();
+    }
 }
