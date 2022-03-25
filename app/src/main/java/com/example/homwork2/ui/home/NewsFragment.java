@@ -1,4 +1,4 @@
-package com.example.homwork2;
+package com.example.homwork2.ui.home;
 
 import android.os.Bundle;
 
@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.homwork2.App;
+import com.example.homwork2.R;
 import com.example.homwork2.databinding.FragmentNewsBinding;
 import com.example.homwork2.models.News;
 
@@ -55,7 +57,7 @@ public class NewsFragment extends Fragment {
         }else {
             news.setTitle(text);
         }
-
+        App.getDataBase().newsDao().insert(news);
         bundle.putSerializable("news", news);
         getParentFragmentManager().setFragmentResult("rk_news", bundle);
         close();

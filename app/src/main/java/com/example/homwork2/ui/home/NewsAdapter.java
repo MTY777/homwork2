@@ -1,15 +1,10 @@
-package com.example.homwork2;
+package com.example.homwork2.ui.home;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +15,12 @@ import com.example.homwork2.models.News;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @SuppressLint("NotifyDataSetChanged")
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
-    private ArrayList<News> list;
+    private List<News> list;
     private OnClickListener onClickListener;
 
     public NewsAdapter() {
@@ -35,6 +31,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new NewsViewHolder(ItemNewsBinding.inflate(LayoutInflater.from(parent.getContext()), parent , false));
+    }
+
+    public void setList(List<News> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -71,6 +72,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         notifyItemChanged(position);
     }
 
+    public void addList(List<News> list) {
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+    public void removeItem(int position) {
+        this.list.remove(position);
+        notifyItemRemoved(position);
+    }
+
 
     class NewsViewHolder extends RecyclerView.ViewHolder {
         ItemNewsBinding binding;
@@ -90,18 +100,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 @Override
                 public boolean onLongClick(View view) {
                     onClickListener.onItemLongClick(getAdapterPosition());
-                    new AlertDialog.Builder(view.getContext()).setTitle("Удаление")
-                            .setMessage("Вы точно хотите удалить?")
-                            .setNegativeButton("нет", null)
-                            .setPositiveButton("да", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(view.getContext(), "Delete", Toast.LENGTH_LONG).show();
-                                    list.remove(getAdapterPosition());
-                                    notifyDataSetChanged();
 
-                                }
-                            }).show();
                     return true;
                 }
             });

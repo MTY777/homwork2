@@ -2,9 +2,23 @@ package com.example.homwork2.models;
 
 import android.content.ServiceConnection;
 
-import java.io.Serializable;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+@Entity
 public class News implements Serializable {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
     private String title;
     private long createdAt;
 

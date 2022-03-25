@@ -5,4 +5,7 @@
         android:title="Clear data"
         />
 
+    <item android:id="@+id/sorting"
+        android:title="Alphabetical sorting"
+        />
 </menu>

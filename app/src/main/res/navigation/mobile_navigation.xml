@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.homwork2.NewsFragment"
+        android:name="com.example.homwork2.ui.home.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
     <fragment

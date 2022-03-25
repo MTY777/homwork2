@@ -6,6 +6,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.homwork2.models.News;
+import com.example.homwork2.ui.home.NewsAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -19,18 +21,28 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.homwork2.databinding.ActivityMainBinding;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-
+    private NewsAdapter newsAdapter;
     private Prefs prefes;
+    private News news;
+    private List<News> list = App.getDataBase().newsDao().getAll();
+
+    public void News(News news) {
+        this.news = news;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        newsAdapter = new NewsAdapter();
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -43,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         prefes = new Prefs(this);
         if (!prefes.isBoardShown()) {
             navController.navigate(R.id.boardFragment);
+
+
         }
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
@@ -65,10 +79,12 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.clear_data:
                 prefes.clearPreferences(getApplicationContext());
-                return true;
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
     @Override
@@ -77,4 +93,6 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.activity_menu, menu);
         return true;
     }
+
+
 }
